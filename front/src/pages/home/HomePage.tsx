@@ -12,7 +12,7 @@ const HomePage = () => {
   }
   return (
     <div className='container'>
-      {/* <Link to='/ui' className={s.links}>{t("ui")}</Link> */}
+      <Link to='/ui' className={s.links}>{t("ui")}</Link>
       <Link to='/sdk' className={s.links}>{t("sdk")}</Link>
       <select onChange={(e) => changeLanguage(e.target.value)} defaultValue={localStorage.getItem('language') || 'en'}>
         <option value="en">en</option>

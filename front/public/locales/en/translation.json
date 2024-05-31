@@ -7,7 +7,7 @@
   "testnetError": "Please input your testnet address!",
   "copied": "Copied",
   "disconnect": "Disconnect",
-  "conncetWallet": "Connect wallet",
+  "connectWallet": "Connect wallet",
   "copy": "Copy Address",
   "success": "Operation successful!",
   "error": "You rejected the transaction!",

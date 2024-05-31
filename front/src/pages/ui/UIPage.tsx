@@ -29,11 +29,8 @@ const UIPage = () => {
     <div className={s.connect}>
       <Link to='/' className={s.links}>Home </Link>
       {t("connections")}
-
       <TonConnectButton />
-   
       <SendFrom handleSubmit={handleSubmit } />
-      
     </div>
   )
 }
