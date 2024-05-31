@@ -17,6 +17,11 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
   const isConnectionRestored = useConnectionRestored();
   const { t } = useTranslation()
 
+  const handleDisconnect = () => {
+    connector.disconnect()
+    localStorage.removeItem('wallet')
+}
+
   const items = [{
     key: '1',
     label: (
@@ -28,7 +33,7 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
   {
     key: '2',
     label: (
-      <Button type="primary" onClick={() => connector.disconnect()}>{t('disconnect') }</Button>
+      <Button type="primary" onClick={handleDisconnect}>{t('disconnect') }</Button>
     )
   }
   ]
