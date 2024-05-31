@@ -38,7 +38,6 @@ const SDKPage = () => {
   const onConnectClick = () => {
     if (embeddedWallet) {
       connector.connect({ jsBridgeKey: embeddedWallet.jsBridgeKey })
-      localStorage.setItem('wallet', JSON.stringify(wallet))
     }
     toggleModal()
   }

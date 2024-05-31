@@ -33,9 +33,6 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
   }
   ]
 
-console.log(wallet);
-
-
   return (
     <div>
       {
