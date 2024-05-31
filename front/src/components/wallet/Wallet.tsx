@@ -31,8 +31,10 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
       <Button type="primary" onClick={() => connector.disconnect()}>{t('disconnect') }</Button>
     )
   }
-
   ]
+
+console.log(wallet);
+
 
   return (
     <div>
