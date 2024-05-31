@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { RouterProvider } from "react-router-dom";
 import { router } from './routers'
 
@@ -19,11 +18,7 @@ function App() {
   }, [])
 
   return (
-    <TonConnectUIProvider
-      manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
-    >
       <RouterProvider router={router} />
-    </TonConnectUIProvider>
   )
 }
 

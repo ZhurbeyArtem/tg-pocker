@@ -6,6 +6,7 @@ import Wallet from "../../components/wallet/Wallet.tsx";
 import SendFrom from "../../components/sendForm/SendForm.tsx";
 import { useWallet } from "../../hooks/useWallet.ts";
 import { useSendTransaction } from "../../hooks/useSendTransaction.ts";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
 type FormValues = {
   address: string;
@@ -27,13 +28,18 @@ const SDKPage = () => {
 
 
   return (
-    <div className={s.connect}>
-      <Link to='/' className={s.links}>Home </Link>
-      <Wallet onConnect={toggleModal} />
-      <ConnectWalletModal isOpen={isModalOpen} toggleModal={toggleModal} />
+    <TonConnectUIProvider
+      manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
+    >
+      <div className={s.connect}>
+        <Link to='/' className={s.links}>Home</Link>
+        <Wallet onConnect={toggleModal} />
+        <ConnectWalletModal isOpen={isModalOpen} toggleModal={toggleModal} />
 
-      {!!wallet && <SendFrom handleSubmit={handleSubmit} isLoading={confirmationOnProgress} />}
-    </div>
+        {!!wallet && <SendFrom handleSubmit={handleSubmit} isLoading={confirmationOnProgress} />}
+      </div>
+    </TonConnectUIProvider>
+
   )
 }
 
