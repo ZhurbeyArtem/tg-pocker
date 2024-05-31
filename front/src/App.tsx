@@ -20,7 +20,7 @@ function App() {
 
   return (
     <TonConnectUIProvider
-      manifestUrl="https://tg-pocker-zhurbeyartems-projects.vercel.app/public/tonconnect-manifest.json"
+      manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
     >
       <RouterProvider router={router} />
     </TonConnectUIProvider>
