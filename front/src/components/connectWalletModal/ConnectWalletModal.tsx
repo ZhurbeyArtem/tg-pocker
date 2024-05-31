@@ -19,7 +19,6 @@ const ConnectWalletModal: FunctionComponent<{
   const [selectedWallet, setSelectedWallet] = useState<WalletInfoRemote | null>(null)
 
   const wallet = useWallet()
-
   useEffect(() => {
     if (isOpen && wallet) toggleModal()
   }, [isOpen, toggleModal, wallet])
