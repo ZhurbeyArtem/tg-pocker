@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  color: var(--tg-theme-text-color);
+  font-family: --h1-text;
+}
+
+.container {
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 375px;
+  width: 100%;
+}
+
+.swiper-pagination{
+  width: 31px;
+  gap: 6px;
+  display: flex;
+  margin: 12px auto 0;
+
+}
+.swiper-pagination-bullet {
+  background: rgb(88, 85, 102);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}

@@ -1,0 +1,6 @@
+:root {
+  --btn-gray: rgb(217, 217, 217);
+  --btn-hover: linear-gradient(180.00deg, rgb(105, 99, 99),rgb(107, 107, 107) 100%);
+  --text-color: #ffffff;
+  --gray: #787878;
+}

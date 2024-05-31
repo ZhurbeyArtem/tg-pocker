@@ -1,0 +1,14 @@
+.connect{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 400px;
+  width: 100%;
+  gap: 20px;
+}
+.links {
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  background-color: lightskyblue;
+}
