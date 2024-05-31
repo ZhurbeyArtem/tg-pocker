@@ -1,5 +1,5 @@
 import { Button, Flex, Modal } from "antd";
-import { FunctionComponent, useEffect, useMemo, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { connector } from "../../connector";
 import {
   isWalletInfoCurrentlyInjected,
