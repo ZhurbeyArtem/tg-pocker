@@ -33,6 +33,10 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
   }
   ]
 
+  if (wallet) {
+    localStorage.setItem('wallet', JSON.stringify(wallet))
+  }
+
   return (
     <div>
       {
