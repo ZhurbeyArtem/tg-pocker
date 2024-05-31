@@ -41,6 +41,10 @@ const SDKPage = () => {
     }
     toggleModal()
   } 
+
+console.log(wallet);
+
+
     return (
 
       <div className={s.connect}>
