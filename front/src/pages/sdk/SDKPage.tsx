@@ -38,26 +38,30 @@ const SDKPage = () => {
   const onConnectClick = () => {
     if (embeddedWallet) {
       connector.connect({ jsBridgeKey: embeddedWallet.jsBridgeKey })
+      console.log('1');
+
       console.log(wallet);
+      console.log('2');
+
       console.log(embeddedWallet);
-      
+
       localStorage.setItem('wallet', JSON.stringify(wallet))
     }
     toggleModal()
-  } 
+  }
 
 
 
-    return (
+  return (
 
-      <div className={s.connect}>
-        <Link to='/' className={s.links}>Home</Link>
-        <Wallet onConnect={onConnectClick} />
-        <ConnectWalletModal isOpen={isModalOpen} toggleModal={toggleModal} />
+    <div className={s.connect}>
+      <Link to='/' className={s.links}>Home</Link>
+      <Wallet onConnect={onConnectClick} />
+      <ConnectWalletModal isOpen={isModalOpen} toggleModal={toggleModal} />
 
-        {!!wallet && <SendFrom handleSubmit={handleSubmit} isLoading={confirmationOnProgress} />}
-      </div>
-  
+      {!!wallet && <SendFrom handleSubmit={handleSubmit} isLoading={confirmationOnProgress} />}
+    </div>
+
 
   )
 }
