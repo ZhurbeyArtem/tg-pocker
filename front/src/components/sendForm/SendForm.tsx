@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 
-
+type FormValues = {
+  address: string;
+};
 interface Props {
-  handleSubmit: () => void;
+  handleSubmit: (val: FormValues) => void;
   isLoading?: boolean
 }
 

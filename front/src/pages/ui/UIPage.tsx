@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom"
 import s from './UIPage.module.css'
 import { useTranslation } from "react-i18next"
@@ -13,7 +14,7 @@ const UIPage = () => {
   const [tonConnectUI] = useTonConnectUI();
 
   const handleSubmit = async ({ address }: FieldType) => {
-    const transaction = {
+    const transaction: any = {
       messages: [
         {
           address: address, // destination address

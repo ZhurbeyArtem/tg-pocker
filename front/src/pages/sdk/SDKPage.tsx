@@ -7,6 +7,9 @@ import SendFrom from "../../components/sendForm/SendForm.tsx";
 import { useWallet } from "../../hooks/useWallet.ts";
 import { useSendTransaction } from "../../hooks/useSendTransaction.ts";
 
+type FormValues = {
+  address: string;
+};
 
 const SDKPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,11 +20,11 @@ const SDKPage = () => {
   };
   const [sendTransaction, confirmationOnProgress] = useSendTransaction()
 
-  const handleSubmit = async ({ address }) => {
+  const handleSubmit = async ({ address }: FormValues) => {
 
     await sendTransaction(address)
   }
-console.log(wallet);
+
 
   return (
     <div className={s.connect}>

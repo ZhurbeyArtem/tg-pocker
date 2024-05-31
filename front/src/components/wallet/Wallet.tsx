@@ -1,5 +1,5 @@
 import { Button, Dropdown, } from 'antd'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent } from 'react'
 import { useWallet } from '../../hooks/useWallet';
 import { connector } from '../../connector';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => {
 
   const wallet = useWallet();
-  const [copied, setCopied] = useState(false);
+
   const userFriendlyAddress = wallet ? toUserFriendlyAddress(wallet?.account.address, wallet.account.chain === CHAIN.TESTNET) : '';
   const slicedAddress = userFriendlyAddress.slice(0, 4) + '...' + userFriendlyAddress.slice(-4)
   const isConnectionRestored = useConnectionRestored();
@@ -19,7 +19,7 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
   const items = [{
     key: '1',
     label: (
-      <CopyToClipboard text={userFriendlyAddress} onCopy={() => setCopied(true)}>
+      <CopyToClipboard text={userFriendlyAddress}>
         <Button type="primary" onClick={() => toast.success('Copied!')}>{"Copy Address"}</Button>
       </CopyToClipboard>
     )
@@ -38,7 +38,7 @@ const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => 
       {
         wallet
           ?
-          <Dropdown menu={{ items }} trigger={['click']} onOpenChange={() => setCopied(false)}>
+          <Dropdown menu={{ items }} trigger={['click']}>
             <a onClick={(e) => e.preventDefault()}>
               <Button>{slicedAddress}</Button>
             </a>
