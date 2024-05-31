@@ -1,4 +1,15 @@
 {
   "ui": "ui на укр",
-  "sdk": "sdk на укр"
+  "sdk": "sdk на укр",
+  "connect": "Приєднатись до",
+  "transfer": "Надіслати переказ",
+  "testnet": "Testnet адрес",
+  "testnetError": "Будьласка ведіть Testnet адресу",
+  "copied": "Скопійовано",
+  "disconnect": "Вийти",
+  "conncetWallet": "Під'єднати гаманець",
+  "copy": "Скопіювати",
+  "success": "Успішна операція",
+  "error": "Ви відхилили переказ",
+  "unknownError": "Невідома помилка"
 }

@@ -1,4 +1,15 @@
 {
   "ui": "ui en",
-  "sdk": "sdk en"
+  "sdk": "sdk en",
+  "connect": "Connect to",
+  "transfer": " Send Transaction",
+  "testnet": "Testnet address",
+  "testnetError": "Please input your testnet address!",
+  "copied": "Copied",
+  "disconnect": "Disconnect",
+  "conncetWallet": "Connect wallet",
+  "copy": "Copy Address",
+  "success": "Operation successful!",
+  "error": "You rejected the transaction!",
+  "unknownError": "Unknown error"
 }

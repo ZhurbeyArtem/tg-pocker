@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   address: string;
@@ -9,7 +10,8 @@ interface Props {
   isLoading?: boolean
 }
 
-const SendFrom: React.FC<Props> = ({handleSubmit, isLoading}) => {
+const SendFrom: React.FC<Props> = ({ handleSubmit, isLoading }) => {
+  const { t } = useTranslation()
 
   return (
     <Form
@@ -22,16 +24,16 @@ const SendFrom: React.FC<Props> = ({handleSubmit, isLoading}) => {
       autoComplete="off"
     >
       <Form.Item
-        label="Testnet address"
+        label={t('testnet')}
         name="address"
-        rules={[{ required: true, message: 'Please input your testnet address!' }]}
+        rules={[{ required: true, message: t('testnetError') }]}
       >
         <Input.TextArea />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Send Transaction
+          {t('transfer')}
         </Button>
       </Form.Item>
     </Form>

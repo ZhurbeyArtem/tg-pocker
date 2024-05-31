@@ -4,10 +4,12 @@ import { FunctionComponent, useEffect, useState } from 'react';
 
 import { connector } from '../../connector';
 import { useWallet } from '../../hooks/useWallet';
+import { useTranslation } from 'react-i18next';
 
 const QRCodeModal: FunctionComponent<{ isOpen: boolean; onClose: () => void; walletInfo: WalletInfoRemote | null }> = ({ isOpen, onClose, walletInfo }) => {
 
   const [link, setLink] = useState('');
+  const { t } = useTranslation()
 
   const wallet = useWallet()
 
@@ -28,7 +30,7 @@ const QRCodeModal: FunctionComponent<{ isOpen: boolean; onClose: () => void; wal
         Open {walletInfo?.name}
       </Button>,
     ]}>
-      <h2>Connect to {walletInfo?.name}</h2>
+      <h2>{t("connect")} {walletInfo?.name}</h2>
 
       <QRCode size={250} value={link} />
 
