@@ -9,9 +9,8 @@ import { toast } from 'react-toastify';
 
 
 const Wallet: FunctionComponent<{ onConnect: () => void }> = ({ onConnect }) => {
-
+  
   const wallet = useWallet();
-
   const userFriendlyAddress = wallet ? toUserFriendlyAddress(wallet?.account.address, wallet.account.chain === CHAIN.TESTNET) : '';
   const slicedAddress = userFriendlyAddress.slice(0, 4) + '...' + userFriendlyAddress.slice(-4)
   const isConnectionRestored = useConnectionRestored();
