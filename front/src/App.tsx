@@ -20,7 +20,7 @@ function App() {
 
   return (
     <TonConnectUIProvider
-      manifestUrl="https://192.168.0.104:5173/public/tonconnect-manifest.json"
+      manifestUrl="https://tg-pocker.vercel.app/public/tonconnect-manifest.json"
     >
       <RouterProvider router={router} />
     </TonConnectUIProvider>
