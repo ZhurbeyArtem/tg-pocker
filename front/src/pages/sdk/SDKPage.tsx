@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 import s from './SDKPage.module.css'
 import ConnectWalletModal from "../../components/connectWalletModal/ConnectWalletModal.tsx";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Wallet from "../../components/wallet/Wallet.tsx";
 import SendFrom from "../../components/sendForm/SendForm.tsx";
 import { useWallet } from "../../hooks/useWallet.ts";
 import { useSendTransaction } from "../../hooks/useSendTransaction.ts";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { WalletInfo, isWalletInfoCurrentlyEmbedded } from "@tonconnect/sdk";
+import { connector } from "../../connector.ts";
 
 type FormValues = {
   address: string;
@@ -26,19 +27,30 @@ const SDKPage = () => {
     await sendTransaction(address)
   }
 
+  const [walletsList, setWalletsList] = useState<WalletInfo[] | null>(null);
 
-  return (
-    <TonConnectUIProvider
-      manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
-    >
+  useEffect(() => {
+    connector.getWallets().then(setWalletsList);
+  }, []);
+  const embeddedWallet = useMemo(() => walletsList && walletsList.find(isWalletInfoCurrentlyEmbedded), [walletsList])
+
+
+  const onConnectClick = () => {
+    if (embeddedWallet) {
+      connector.connect({ jsBridgeKey: embeddedWallet.jsBridgeKey})
+    }
+    toggleModal()
+  } 
+    return (
+
       <div className={s.connect}>
         <Link to='/' className={s.links}>Home</Link>
-        <Wallet onConnect={toggleModal} />
+        <Wallet onConnect={onConnectClick} />
         <ConnectWalletModal isOpen={isModalOpen} toggleModal={toggleModal} />
 
         {!!wallet && <SendFrom handleSubmit={handleSubmit} isLoading={confirmationOnProgress} />}
       </div>
-    </TonConnectUIProvider>
+  
 
   )
 }

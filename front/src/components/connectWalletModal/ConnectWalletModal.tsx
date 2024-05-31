@@ -1,5 +1,5 @@
 import { Button, Flex, Modal } from "antd";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { connector } from "../../connector";
 import {
   isWalletInfoCurrentlyInjected,
@@ -44,7 +44,6 @@ const ConnectWalletModal: FunctionComponent<{
       <h2>Choose a wallet</h2>
       {!!walletsList && (
         <Flex wrap gap="small">
-          {" "}
           {walletsList.map((wallet) => (
             <Button
               onClick={() => onWalletClick(wallet)}
