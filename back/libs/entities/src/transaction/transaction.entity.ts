@@ -1,5 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './user.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from '../user/user.entity';
 
 enum Type {
   deposit = 'deposit',
@@ -49,5 +55,6 @@ export class Transaction {
   completedAt: Date;
 
   @ManyToOne(() => User, (user) => user.transactions)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 }

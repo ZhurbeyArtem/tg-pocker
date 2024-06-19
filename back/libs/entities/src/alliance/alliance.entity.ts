@@ -1,11 +1,11 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Tournament } from './tournament.entity';
-import { InvitationLink } from './invitationLinks.entity';
+import { Tournament } from '../tournament/tournament.entity';
+import { InvitationLink } from '../invitation//invitationLinks.entity';
 import { AllianceInvitations } from './allianceInvitation.entity';
-import { News } from './news.entity';
-import { Account } from './accounts.entity';
+import { News } from '../news/news.entity';
+import { Account } from '../accounts/accounts.entity';
 import { AllianceOwners } from './allianceOwners.entity';
-import { Club } from './club.entity';
+import { Club } from '../club/club.entity';
 
 enum allianceLocalization {
   ru = 'ru',
@@ -59,7 +59,11 @@ export class Alliance {
   })
   type: string;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @OneToMany(() => News, (news) => news.alliance)

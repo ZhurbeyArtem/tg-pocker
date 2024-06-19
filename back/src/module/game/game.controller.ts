@@ -11,7 +11,7 @@ import { Game } from './interfaces/game.interface';
 
 @Controller('game')
 export class GameController {
-  constructor(private readonly gameService: GameService) { }
+  constructor(private readonly gameService: GameService) {}
 
   @Post('create')
   createGame(): Game {

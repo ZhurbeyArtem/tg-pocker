@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Alliance } from './alliance.entity';
 
 @Entity('alliance_owners')
@@ -12,17 +18,22 @@ export class AllianceOwners {
   @Column({ type: 'varchar', name: 'owner_username' })
   ownerUsername: string;
 
-  @Column('uuid')
+  @Column('uuid', { name: 'club_id' })
   clubId: string;
 
   @Column('float')
   percent: number;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @ManyToOne(() => Alliance, (alliance) => alliance.allianceOwners, {
     nullable: true,
   })
+  @JoinColumn({ name: 'alliance_id' })
   alliance: Alliance;
 }

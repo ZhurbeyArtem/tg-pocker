@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../user/user.entity';
 
 @Entity('languages')
 export class Language {
@@ -12,7 +12,11 @@ export class Language {
   @Column({ type: 'varchar', name: 'file_link' })
   fileLink: string;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @OneToMany(() => User, (user) => user.language, { nullable: true })

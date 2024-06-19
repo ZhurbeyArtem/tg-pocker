@@ -16,7 +16,7 @@ export class TournamentSettings {
   @Column({
     type: 'enum',
     enum: GameType,
-    name: 'type_of_game'
+    name: 'type_of_game',
   })
   typeOfGame: string;
 
@@ -51,6 +51,10 @@ export class TournamentSettings {
   @Column({ type: 'int', name: 'rest_time_in_minutes' })
   restTimeInMinutes: number;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 }

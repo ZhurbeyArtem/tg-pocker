@@ -47,7 +47,7 @@ export class GameService {
     game.players.forEach((player) => {
       player.cards = [game.deck.pop(), game.deck.pop()];
     });
-    return game
+    return game;
   }
 
   private createDeck(): string[] {

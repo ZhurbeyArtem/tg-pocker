@@ -7,12 +7,21 @@ config({ path: join(process.cwd(), '.env') });
 const configService = new ConfigService();
 
 const options = (): DataSourceOptions => {
-  const url = configService.get('DB_URL');
-  if (!url) {
-    throw new Error('DB url is empty');
+  const host = configService.get('POSTGRES_HOST');
+  const port = configService.get('POSTGRES_PORT');
+  const username = configService.get('POSTGRES_USER');
+  const password = configService.get('POSTGRES_PASSWORD');
+  const database = configService.get('POSTGRES_DB');
+
+  if (!host || !port || !username || !password || !database) {
+    throw new Error('Database configuration is incomplete');
   }
   return {
-    url,
+    host,
+    port,
+    username,
+    password,
+    database,
     type: 'postgres',
     schema: 'public',
     logging: true,

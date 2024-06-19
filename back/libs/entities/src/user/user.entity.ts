@@ -1,16 +1,18 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Account } from './accounts.entity';
-import { Language } from './language.entity';
-import { Transaction } from './transaction.entity';
-import { Tournament } from './tournament.entity';
-import { ClubInvitations } from './clubInvitation.entity';
-import { ClubBannedAndKickedUsers } from './clubBannedAndKickedUsers.entity';
+import { Account } from '../accounts//accounts.entity';
+import { Language } from '../language//language.entity';
+import { Transaction } from '../transaction//transaction.entity';
+import { Tournament } from '../tournament/tournament.entity';
+import { ClubInvitations } from '../club/clubInvitation.entity';
+import { ClubBannedAndKickedUsers } from '../club/clubBannedAndKickedUsers.entity';
+import { UserRound } from './userRound.entity';
 
 enum UserRole {
   player = 'player',
@@ -65,7 +67,11 @@ export class User {
   @Column({ type: 'uuid', nullable: true, name: 'banned_by' })
   bannedBy: string;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @Column({ type: 'varchar', name: 'tg_username' })
@@ -93,6 +99,7 @@ export class User {
   accounts: Account[];
 
   @ManyToOne(() => Language, (language) => language.user)
+  @JoinColumn({ name: 'language_id' })
   language: Language;
 
   @OneToMany(() => Transaction, (transaction) => transaction.user)
@@ -109,4 +116,7 @@ export class User {
     (clubBannedAndKickedUser) => clubBannedAndKickedUser.user,
   )
   clubBannedAndKickedUsers: ClubBannedAndKickedUsers[];
+
+  @OneToMany(() => UserRound, (userRound) => userRound.user)
+  userRounds: UserRound[];
 }

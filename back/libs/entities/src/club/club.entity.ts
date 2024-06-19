@@ -7,15 +7,15 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './user.entity';
-import { Tournament } from './tournament.entity';
-import { Account } from './accounts.entity';
+import { User } from '../user/user.entity';
+import { Tournament } from '../tournament/tournament.entity';
+import { Account } from '../accounts/accounts.entity';
 import { ClubInvitations } from './clubInvitation.entity';
 import { ClubSettings } from './clubSettings.entity';
 import { ClubBannedAndKickedUsers } from './clubBannedAndKickedUsers.entity';
-import { AllianceInvitations } from './allianceInvitation.entity';
-import { News } from './news.entity';
-import { Alliance } from './alliance.entity';
+import { AllianceInvitations } from '../alliance/allianceInvitation.entity';
+import { News } from '../news/news.entity';
+import { Alliance } from '../alliance/alliance.entity';
 
 enum clubLocalization {
   ru = 'ru',
@@ -47,7 +47,7 @@ export class Club {
   @Column('varchar')
   description: string;
 
-  @Column('uuid')
+  @Column('uuid', { name: 'owner_id' })
   ownerId: string;
 
   @Column({ type: 'varchar', name: 'chat_link' })
@@ -69,7 +69,11 @@ export class Club {
   @Column('varchar')
   code: string; //code that access to club
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @OneToMany(() => User, (user) => user.language, { nullable: true })
@@ -102,9 +106,10 @@ export class Club {
   @ManyToOne(() => Alliance, (alliance) => alliance.clubs, {
     nullable: true,
   })
+  @JoinColumn({ name: 'alliance_id' })
   alliance: Alliance;
 
   @OneToOne(() => ClubSettings)
-  @JoinColumn()
+  @JoinColumn({ name: 'club_settings_id' })
   settings: ClubSettings;
 }

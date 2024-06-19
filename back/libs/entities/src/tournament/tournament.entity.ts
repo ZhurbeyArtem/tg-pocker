@@ -7,11 +7,11 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './user.entity';
-import { Club } from './club.entity';
-import { Alliance } from './alliance.entity';
+import { User } from '../user/user.entity';
+import { Club } from '../club/club.entity';
+import { Alliance } from '../alliance/alliance.entity';
 import { TournamentSettings } from './tournamentSettings.entity';
-import { Account } from './accounts.entity';
+import { Account } from '../accounts/accounts.entity';
 
 @Entity('tournaments')
 export class Tournament {
@@ -36,27 +36,35 @@ export class Tournament {
   @Column('varchar')
   logo: string;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @Column({ type: 'int', name: 'join_cost' })
   joinCost: number;
 
   @ManyToOne(() => User, (user) => user.tournaments, { nullable: true })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => Club, (club) => club.tournaments, { nullable: true })
+  @JoinColumn({ name: 'club_id' })
   club: Club;
 
   @ManyToOne(() => Alliance, (alliance) => alliance.tournaments, {
     nullable: true,
   })
+  @JoinColumn({ name: 'alliance_id' })
   alliance: Alliance;
 
   @OneToMany(() => Account, (account) => account.tournament, { nullable: true })
+  @JoinColumn({ name: 'account_id' })
   accounts: Account[];
 
   @OneToOne(() => TournamentSettings)
-  @JoinColumn()
+  @JoinColumn({ name: 'tournament_settings_id' })
   settings: TournamentSettings;
 }

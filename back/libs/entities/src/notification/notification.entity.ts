@@ -37,7 +37,11 @@ export class Notification {
   @Column({ type: 'uuid', nullable: true, array: true, name: 'user_ids' })
   userIds: string;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @Column({

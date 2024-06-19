@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TelegramUpdate } from './telegram.update';
 import { TelegramService } from './telegram.service';
 import { TelegrafModule } from 'nestjs-telegraf';
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -14,4 +14,4 @@ dotenv.config();
   ],
   providers: [TelegramService, TelegramUpdate],
 })
-export class TelegramModule { }
+export class TelegramModule {}

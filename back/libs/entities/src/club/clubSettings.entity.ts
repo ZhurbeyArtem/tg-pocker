@@ -36,6 +36,10 @@ export class ClubSettings {
   @Column({ type: 'float', name: 'coin_ration' })
   coinRation: number;
 
-  @Column({ type: 'timestamp', name: 'created_at' })
+  @Column({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 }
