@@ -30,12 +30,6 @@
       "@lib/entities/*": [
         "libs/entities/src/*"
       ],
-      "@lib/redis": [
-        "libs/redis/src"
-      ],
-      "@lib/redis/*": [
-        "libs/redis/src/*"
-      ]
     }
   }
 }

@@ -1,4 +1,4 @@
-version: '3.0'
+version: '4.29.0'
 
 services:
   main:
@@ -15,6 +15,7 @@ services:
     command: npm run start
     depends_on: 
       - postgres
+      - redis
     restart: always
 
   postgres:
@@ -30,5 +31,19 @@ services:
       - pgdata:/var/lib/postgresql/data
     restart: always
 
+  redis:
+    container_name: redis
+    image: redis
+    env_file: 
+      - .env
+    environment: 
+      REDIS_DATA: /var/lib/redis/data
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/var/lib/redis/data
+    restart: always
+
 volumes:
   pgdata:
+  redis:
