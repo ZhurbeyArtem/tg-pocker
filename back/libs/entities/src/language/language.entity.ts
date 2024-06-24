@@ -7,10 +7,13 @@ export class Language {
   id: string;
 
   @Column('varchar')
-  attribute: string;
+  name: string;
 
-  @Column({ type: 'varchar', name: 'file_link' })
-  fileLink: string;
+  @Column('varchar')
+  code: string;
+
+  @Column({ type: 'json' })
+  variables: string;
 
   @Column({
     type: 'timestamp',

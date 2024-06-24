@@ -1,23 +1,75 @@
-version: '4.29.0'
-
 services:
-  main:
-    container_name: backend-bot-game-gc-poker
-    build: 
-      context: .
-    env_file: 
+  api_gateway:
+    build: ./http-api-gateway
+    ports:
+      - "3000:3000"
+    volumes: 
+      - ./http-api-gateway/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+    environment:
       - .env
-    volumes:
-      - .:/app
-      - /app/node_modules
-    ports: 
-     - 1000:1000
-    command: npm run start
-    depends_on: 
-      - postgres
-      - redis
-    restart: always
-
+  users_microservice:
+    build: ./users-microservice
+    volumes: 
+      - ./users-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  language_microservice:
+    build: ./language-microservice
+    volumes: 
+      - ./language-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  transactions_microservice:
+    build: ./transactions-microservice
+    volumes: 
+      - ./transactions-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  notification_microservice:
+    build: ./notification-microservice
+    volumes: 
+      - ./notification-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  money_microservice:
+    build: ./money-microservice
+    volumes: 
+      - ./money-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  game_microservice:
+    build: ./game-microservice
+    volumes: 
+      - ./game-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  clubs_microservice:
+    build: ./clubs-microservice
+    volumes: 
+      - ./clubs-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  anallitic_microservice:
+    build: ./anallitic-microservice
+    volumes: 
+      - ./anallitic-microservice/src:/usr/src/app/src
+      - ./libs:/usr/src/app/libs
+      - ./.env:/usr/src/app/.env
+    command: npm run start:dev
+  nats:
+    image: nats
+    ports:
+      - 4222:4222
   postgres:
     container_name: postgres
     image: postgres:latest

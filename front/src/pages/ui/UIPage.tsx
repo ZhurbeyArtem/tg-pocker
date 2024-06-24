@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom"
 import s from './UIPage.module.css'
 import { useTranslation } from "react-i18next"
-import { TonConnectButton, useTonConnectUI } from "@tonconnect/ui-react"
+import { TonConnectButton, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react"
 import SendFrom from "../../components/sendForm/SendForm"
 
 type FieldType = {
@@ -12,6 +12,9 @@ type FieldType = {
 const UIPage = () => {
   const { t } = useTranslation()
   const [tonConnectUI] = useTonConnectUI();
+  const wallet = useTonWallet();
+  console.log(wallet);
+  
 
   const handleSubmit = async ({ address }: FieldType) => {
     const transaction: any = {

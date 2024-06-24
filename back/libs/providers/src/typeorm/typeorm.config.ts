@@ -31,7 +31,10 @@ const options = (): DataSourceOptions => {
     migrations: [join(process.cwd(), 'migrations', '**', '*migration.ts')],
     migrationsRun: true,
     migrationsTableName: 'migrations',
+    synchronize: true
   };
 };
 
 export const appDataSource = new DataSource(options());
+
+// psql -U postgres -d tg_pocker

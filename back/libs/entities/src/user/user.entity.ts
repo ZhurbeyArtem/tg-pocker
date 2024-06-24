@@ -20,6 +20,8 @@ enum UserRole {
   clubUser = 'clubUser',
   admin = 'admin',
   clubModer = 'clubModer',
+  allianceAdmin = 'allianceAdmin',
+  allianceModer = 'allianceModer',
 }
 
 enum UserStatus {
@@ -40,7 +42,7 @@ export class User {
     default: [UserRole.player],
     array: true,
   })
-  role: string[];
+  roles: string[];
 
   @Column({
     type: 'varchar',
@@ -48,10 +50,10 @@ export class User {
   })
   nickname: string;
 
-  @Column('int')
+  @Column('int', { default: 1 })
   lvl: number; // after user level up his lvl user can connect to more higher club
 
-  @Column('int')
+  @Column('int', { default: 1 })
   rank: number; //for more access for functional in club
 
   @Column({
@@ -80,19 +82,25 @@ export class User {
   @Column({ type: 'uuid', name: 'tg_user_id' })
   tgUserId: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   avatar: string;
+
+  @Column({ type: 'varchar' })
+  accessToken: string;
+
+  @Column({ type: 'varchar' })
+  refreshToken: string;
 
   @Column({ nullable: true, type: 'varchar', name: 'best_hand', array: true })
   bestHand: string[];
 
-  @Column({ type: 'simple-json', name: 'total_games' })
+  @Column({ type: 'simple-json', name: 'total_games', default: { totalGames: 0, totalTournaments: 0 } })
   totalGames: { totalGames: number; totalTournaments: number };
 
-  @Column({ type: 'uuid', array: true })
+  @Column({ type: 'uuid', array: true, default: [] })
   friends: string[];
 
-  @Column({ type: 'uuid', name: 'club_id' })
+  @Column({ type: 'uuid', name: 'club_id', nullable: true })
   ClubID: string;
 
   @OneToMany(() => Account, (account) => account.user)
