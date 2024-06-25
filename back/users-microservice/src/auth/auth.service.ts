@@ -1,70 +1,96 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { UserService } from 'src/users/users.service';
+import { User, RefreshToken } from '@lib/entities';
+import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CustomRpcException } from '@lib/exception';
 
 @Injectable()
 export class AuthService {
-  // constructor(
-  //   private jwtService: JwtService,
-  //   @InjectRepository(User) private userRepository: Repository<User>,
-  // ) { }
+  constructor(
+    private jwtService: JwtService,
+    private usersService: UserService,
+    @InjectRepository(RefreshToken)
+    private refreshTokenRep: Repository<RefreshToken>,
+  ) { }
 
-  // async auth(data) {
-  //   try {
-  //     let result;
-  //     const user = await this.userRepository.findOneBy({
-  //       tgUserId: data.tgUserId,
-  //     });
+  async auth(data) {
+    try {
+      let user = await this.usersService.findOneUserByTgId({
+        tgUserId: data.tgUserId,
+      });
 
-  //     if (user) result = await this.login(data);
-  //     else {
-  //       const observeable = await this.natsClient.send('getLangByCode', {
-  //         code: data.languageCode,
-  //       });
-  //       const code = await lastValueFrom(observeable);
-  //       result = await this.register(data, code.id);
-  //     }
+      if (!user) user = await this.register(data);
 
-  //     return await this.generateToken(result);
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-  // async generateToken(user: User) {
-  //   try {
-  //     const payload = {
-  //       ...user,
-  //     };
-  //     const accessToken = this.jwtService.sign(payload, {
-  //       expiresIn: '1d',
-  //       secret: process.env.JWT_ACCESS_SECRET,
-  //     });
-  //     const refreshToken = this.jwtService.sign(payload, {
-  //       expiresIn: '30d',
-  //       secret: process.env.JWT_REFRESH_SECRET,
-  //     });
-  //     return {
-  //       accessToken,
-  //       refreshToken,
-  //     };
-  //   } catch (error) { }
-  // }
-  // async login(data) {
-  //   try {
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+      const { accessToken } = await this.generateToken(user);
+      user = await this.usersService.updateUser({ ...user, accessToken });
 
-  // async register(data, code) {
-  //   try {
-  //     return await this.userRepository.save({
-  //       tgUserId: data.tgUserId,
-  //       tgUsername: data.tgUsername,
-  //       language: code,
-  //       nickname: data.tgUsername,
-  //     });
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async generateToken(user: User) {
+    try {
+      const payload = {
+        role: user.roles,
+        status: user.status,
+        userId: user.id,
+      };
+      const accessToken = this.jwtService.sign(payload, {
+        expiresIn: '1d',
+        secret: process.env.JWT_ACCESS_SECRET,
+      });
+      const refreshToken = uuidv4();
+      await this.storeRefreshToken(accessToken, user.id);
+      return {
+        accessToken,
+        refreshToken,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
 
+  async storeRefreshToken(token: string, userId) {
+    try {
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 3); // that expired after 3 days
+      await this.refreshTokenRep.save({
+        token,
+        user: userId,
+        expiresAt: expiryDate,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async register(data) {
+    try {
+      return await this.usersService.createUser(data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async refreshTokens(refreshToken) {
+    try {
+      const currentDate = new Date();
+      const token = await this.refreshTokenRep
+        .createQueryBuilder('refreshToken')
+        .where('refreshToken.expiresAt >= :currentDate', { currentDate })
+        .andWhere('refreshToken.token = :token', refreshToken)
+        .leftJoinAndSelect('refreshToken.user', 'user')
+        .getOne();
+      await this.refreshTokenRep.delete(refreshToken);
+
+      if (!token) throw new CustomRpcException(401, 'Refresh token is invalid');
+      return this.generateToken(token.user);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

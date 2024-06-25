@@ -17,6 +17,8 @@ export class LanguagesController {
 
   @MessagePattern('getLangByCode')
   async getLangByCode(@Payload() code: FindOneLanguageDto) {
+    console.log(code);
+    
     return await this.languagesService.getOneByCode(code);
   }
 

@@ -1,19 +1,21 @@
 import { Controller, UseFilters } from '@nestjs/common';
-// import { MessagePattern, Payload } from '@nestjs/microservices';
-// import { AuthUserDto } from './dtos/AuthUser.dto';
-// import { UpdateUserInfoDto } from './dtos/UpdateUserInfo';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AllExceptionsFilter } from '@lib/exception';
-// import { UserService } from './users.service';
+import { AuthService } from './auth.service';
+import { AuthDto } from './dtos/Auth.dto';
 
-@Controller('auth')
+@Controller()
 @UseFilters(AllExceptionsFilter)
 export class AuthController {
-  // constructor(private readonly userService: UserService) { }
+  constructor(private readonly authService: AuthService) { }
 
-  // @MessagePattern('authUser')
-  // async authUser(@Payload() data: AuthUserDto) {
-  //   await this.userService.auth(data);
-  //   return data;
-  // }
+  @MessagePattern('auth')
+  async authUser(@Payload() data: AuthDto) {
+    return await this.authService.auth(data);
+  }
 
+  @MessagePattern('refresh')
+  async refreshToken(@Payload() token: string) {
+    return await this.authService.refreshTokens(token);
+  }
 }

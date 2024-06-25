@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '@lib/entities';
 import { Repository } from 'typeorm';
@@ -12,7 +11,6 @@ import { UpdateUserInfoDto } from './dtos/UpdateUserInfo';
 @Injectable()
 export class UserService {
   constructor(
-    private jwtService: JwtService,
     @InjectRepository(User) private userRepository: Repository<User>,
     @Inject('NATS_SERVICE') private natsClient: ClientProxy,
   ) { }
@@ -33,11 +31,9 @@ export class UserService {
     }
   }
 
-  async findOneUserByTgId(id): Promise<User> {
+  async findOneUserByTgId(tgUserId): Promise<User> {
     try {
-      const user = await this.userRepository.findOneBy({
-        tgUserId: id,
-      });
+      const user = await this.userRepository.findOneBy(tgUserId);
 
       return user;
     } catch (error) {

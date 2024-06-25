@@ -1,4 +1,4 @@
-import { Language } from '@lib/entities'
+import { Language } from '@lib/entities';
 export class UpdateUserInfoDto {
   id: string;
 
@@ -15,6 +15,8 @@ export class UpdateUserInfoDto {
   statusReason?: string;
 
   bannedBy?: string;
+
+  accessToken?: string;
 
   tgUsername?: string;
 

@@ -1,15 +1,15 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateUserDto {
-  @IsNotEmpty()
+export class AuthDto {
   @IsString()
+  @IsNotEmpty()
   tgUsername: string;
 
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   tgUserId: string;
 
-  @IsNotEmpty()
   @IsString()
-  languageCode: string; //language code
+  @IsNotEmpty()
+  languageCode: string;
 }

@@ -13,6 +13,7 @@ import { Tournament } from '../tournament/tournament.entity';
 import { ClubInvitations } from '../club/clubInvitation.entity';
 import { ClubBannedAndKickedUsers } from '../club/clubBannedAndKickedUsers.entity';
 import { UserRound } from './userRound.entity';
+import { RefreshToken } from './userRefreshToken.entity';
 
 enum UserRole {
   player = 'player',
@@ -85,11 +86,8 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   avatar: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   accessToken: string;
-
-  @Column({ type: 'varchar' })
-  refreshToken: string;
 
   @Column({ nullable: true, type: 'varchar', name: 'best_hand', array: true })
   bestHand: string[];
@@ -127,4 +125,7 @@ export class User {
 
   @OneToMany(() => UserRound, (userRound) => userRound.user)
   userRounds: UserRound[];
+
+  @OneToMany(() => RefreshToken, refreshToken => refreshToken.user)
+  refreshTokens: RefreshToken[];
 }

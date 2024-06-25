@@ -14,3 +14,4 @@ export * from './tournament/tournament.entity';
 export * from './tournament/tournamentSettings.entity';
 export * from './transaction/transaction.entity';
 export * from './user/user.entity';
+export * from './user/userRefreshToken.entity'
