@@ -21,7 +21,11 @@
       "@lib/providers": ["libs/providers/src"],
       "@lib/providers/*": ["libs/providers/src/*"],
       "@lib/entities": ["libs/entities/src"],
-      "@lib/entities/*": ["libs/entities/src/*"]
+      "@lib/entities/*": ["libs/entities/src/*"],
+      "@lib/upload-files": ["libs/upload-files/src"],
+      "@lib/upload-files/*": ["libs/upload-files/src/*"],
+      "@lib/exception": ["libs/exception/src"],
+      "@lib/exception/*": ["libs/exception/src/*"]
     }
   },
   "watchOptions": {

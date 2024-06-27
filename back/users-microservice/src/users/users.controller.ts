@@ -18,6 +18,7 @@ export class UserMicroserviceController {
 
   @MessagePattern('updateUser')
   async update(@Payload() data: UpdateUserInfoDto) {
+    console.log(data);
     return await this.userService.updateUser(data);
   }
 

@@ -23,6 +23,7 @@
     "migration:gen": "nest build entities --tsc && cross-env npm run typeorm -- -d ./libs/providers/src/typeorm/typeorm.config.ts migration:generate ./migrations/$npm_config_name$_migration"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
     "@nestjs-modules/ioredis": "^2.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.2",
@@ -30,8 +31,10 @@
     "@nestjs/microservices": "^10.3.9",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^10.0.2",
+    "@types/multer": "^1.4.11",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "ioredis": "^5.4.1",
     "nats": "^2.26.0",
@@ -39,6 +42,7 @@
     "pg": "^8.12.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "sharp": "^0.33.4",
     "telegraf": "^4.16.3",
     "typeorm": "^0.3.20"
   },

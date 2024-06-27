@@ -23,7 +23,7 @@
       "@lib/entities": ["libs/entities/src"],
       "@lib/entities/*": ["libs/entities/src/*"],
       "@lib/exception": ["libs/exception/src"],
-      "@lib/exception/*": ["libs/exception/src/*"]
+      "@lib/exception/*": ["libs/exception/src/*"],
     }
   },
   "watchOptions": {

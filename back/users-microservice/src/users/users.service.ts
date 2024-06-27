@@ -8,6 +8,7 @@ import { lastValueFrom } from 'rxjs';
 import { CreateUserDto } from './dtos/CreateUser.dto';
 import { UpdateUserInfoDto } from './dtos/UpdateUserInfo';
 
+
 @Injectable()
 export class UserService {
   constructor(
@@ -60,8 +61,6 @@ export class UserService {
   async updateUser(data: UpdateUserInfoDto): Promise<User> {
     try {
       const { id } = data;
-
-      await this.findOneUserById({ id: id });
       if (data.language) {
         const observable = this.natsClient.send('getLangByCode', {
           code: data.language,
