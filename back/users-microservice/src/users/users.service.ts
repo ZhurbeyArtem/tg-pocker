@@ -18,7 +18,7 @@ export class UserService {
 
   async createUser(data: CreateUserDto): Promise<User> {
     try {
-      const observable = this.natsClient.send('getLangByCode', {
+      const observable = await this.natsClient.send('getLangByCode', {
         code: data.languageCode,
       });
       const code = await lastValueFrom(observable);

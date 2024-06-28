@@ -25,7 +25,11 @@
       "@lib/upload-files": ["libs/upload-files/src"],
       "@lib/upload-files/*": ["libs/upload-files/src/*"],
       "@lib/exception": ["libs/exception/src"],
-      "@lib/exception/*": ["libs/exception/src/*"]
+      "@lib/exception/*": ["libs/exception/src/*"],
+      "@lib/guards": ["libs/guards/src"],
+      "@lib/guards/*": ["libs/guards/src/*"],
+      "@lib/jwt": ["libs/jwt/src"],
+      "@lib/jwt/*": ["libs/jwt/src/*"]
     }
   },
   "watchOptions": {

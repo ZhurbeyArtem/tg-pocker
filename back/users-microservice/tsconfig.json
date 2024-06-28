@@ -24,6 +24,8 @@
       "@lib/entities/*": ["libs/entities/src/*"],
       "@lib/exception": ["libs/exception/src"],
       "@lib/exception/*": ["libs/exception/src/*"],
+      "@lib/jwt": ["libs/jwt/src"],
+      "@lib/jwt/*": ["libs/jwt/src/*"],
     }
   },
   "watchOptions": {

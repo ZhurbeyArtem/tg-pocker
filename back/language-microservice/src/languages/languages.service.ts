@@ -30,7 +30,11 @@ export class LanguagesService {
 
   async getOneByCode(code): Promise<Language> {
     try {
+      console.log(code);
+
       const result = await this.languageRepository.findOneBy(code);
+      console.log(result);
+
       if (!result)
         throw new CustomRpcException(404, 'No language with same code');
       return result;

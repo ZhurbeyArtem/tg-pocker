@@ -38,11 +38,10 @@ export class AuthService {
         role: user.roles,
         status: user.status,
         userId: user.id,
+        lvl: user.lvl,
+        rank: user.rank
       };
-      const accessToken = this.jwtService.sign(payload, {
-        expiresIn: '1d',
-        secret: process.env.JWT_ACCESS_SECRET,
-      });
+      const accessToken = this.jwtService.sign(payload);
       const refreshToken = uuidv4();
       await this.storeRefreshToken(accessToken, user.id);
       return {
@@ -82,10 +81,10 @@ export class AuthService {
       const token = await this.refreshTokenRep
         .createQueryBuilder('refreshToken')
         .where('refreshToken.expiresAt >= :currentDate', { currentDate })
-        .andWhere('refreshToken.token = :token', refreshToken)
+        .andWhere('refreshToken.token = :token', { token: refreshToken })
         .leftJoinAndSelect('refreshToken.user', 'user')
         .getOne();
-      await this.refreshTokenRep.delete(refreshToken);
+      await this.refreshTokenRep.delete({ token: refreshToken });
 
       if (!token) throw new CustomRpcException(401, 'Refresh token is invalid');
       return this.generateToken(token.user);

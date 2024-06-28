@@ -7,11 +7,14 @@ import {
   Param,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateLanguageDto } from './dtos/CreateLanguage.dto';
 import { UpdateLanguageDto } from './dtos/UpdateLanguage.dto';
+import { AllExceptionsFilter } from '@lib/exception';
 
+@UseFilters(AllExceptionsFilter)
 @Controller('languages')
 export class LanguagesController {
   constructor(@Inject('NATS_SERVICE') private natsClient: ClientProxy) { }

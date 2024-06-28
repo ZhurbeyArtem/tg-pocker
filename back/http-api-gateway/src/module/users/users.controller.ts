@@ -8,6 +8,8 @@ import {
   Post,
   Put,
   UploadedFile,
+  UseFilters,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -16,7 +18,9 @@ import { UpdateUserInfoDto } from './dtos/UpdateUserInfo.dto';
 import { CreateUserDto } from './dtos/CreateUser.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadFilesService } from '@lib/upload-files';
-
+import { Access, RolesGuard, AuthGuard } from '@lib/guards';
+import { AllExceptionsFilter } from '@lib/exception';
+@UseFilters(AllExceptionsFilter)
 @Controller('users')
 export class UsersController {
   constructor(
@@ -58,6 +62,8 @@ export class UsersController {
     return this.natsClient.send('getUserInfoById', id);
   }
 
+  @Access({ role: 'admin', lvl: 2, rank: 1 })
+  @UseGuards(RolesGuard, AuthGuard)
   @Delete('/:id')
   delete(@Param() id: string) {
     return this.natsClient.send('deleteUser', id);

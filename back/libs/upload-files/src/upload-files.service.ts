@@ -1,8 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { S3Client, PutObjectCommand, PutObjectCommandInput } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, PutObjectCommandInput, GetObjectCommand, GetObjectCommandInput } from "@aws-sdk/client-s3";
 import * as sharp from 'sharp'
-
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 @Injectable()
 export class UploadFilesService {
   private client: S3Client;
@@ -25,17 +25,17 @@ export class UploadFilesService {
   async uploadFile(key: string, file: Buffer, mimeType: string) {
     try {
       await this.validateImage(file)
-      const params: PutObjectCommandInput = {
+      const putParams: PutObjectCommandInput = {
         Bucket: this.bucketName,
         Key: key,
         Body: file,
         ContentType: mimeType,
       };
-      await this.client.send(new PutObjectCommand(params));
-      return `https://${this.bucketName}.s3.${this.configService.get<string>('AWS_S3_REGION')}.amazonaws.com/${key}`;
+      await this.client.send(new PutObjectCommand(putParams));
+      return `https://${this.bucketName}.s3.${this.configService.get<string>('AWS_S3_REGION')}.amazonaws.com/${key}`;;
     } catch (error) {
       console.log(error);
-      
+
       throw error
     }
   }
