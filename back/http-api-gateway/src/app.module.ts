@@ -4,6 +4,7 @@ import { GameModule } from './module/game/game.module';
 import { UsersModule } from './module/users/users.module';
 import { LanguagesModule } from './module/languages/languages.module';
 import { AuthModule } from './module/auth/auth.module';
+import { ClubModule } from './module/club/club.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from './module/auth/auth.module';
     UsersModule,
     LanguagesModule,
     AuthModule,
+    ClubModule,
   ],
   controllers: [],
   providers: [],

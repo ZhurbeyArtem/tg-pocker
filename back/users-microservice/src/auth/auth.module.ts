@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { NatsClientModule } from 'src/nats-client/nats-client.module';
+import { NatsClientModule } from '@lib/nats';
 import { RefreshToken } from '@lib/entities';
 import { JwtConfigModule } from '@lib/jwt';
 

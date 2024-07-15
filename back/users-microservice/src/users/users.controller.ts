@@ -17,8 +17,7 @@ export class UserMicroserviceController {
   }
 
   @MessagePattern('updateUser')
-  async update(@Payload() data: UpdateUserInfoDto) {
-    console.log(data);
+  async update(@Payload() data: UpdateUserInfoDto) {    
     return await this.userService.updateUser(data);
   }
 
@@ -30,5 +29,11 @@ export class UserMicroserviceController {
   @MessagePattern('deleteUser')
   async delete(@Payload() id: string) {
     return await this.userService.deleteUser(id);
+  }
+
+  @MessagePattern('findAllUsersInClub')
+  async findAllUsersInClub(@Payload() id) {
+
+    return await this.userService.findAllUsersInClub(id);
   }
 }

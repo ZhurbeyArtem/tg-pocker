@@ -62,7 +62,7 @@ export class UsersController {
     return this.natsClient.send('getUserInfoById', id);
   }
 
-  @Access({ role: 'admin', lvl: 2, rank: 1 })
+  @Access({ roles: ['admin'], lvl: 2, rank: 1 })
   @UseGuards(RolesGuard, AuthGuard)
   @Delete('/:id')
   delete(@Param() id: string) {

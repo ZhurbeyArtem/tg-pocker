@@ -56,7 +56,10 @@ services:
     build: ./clubs-microservice
     volumes: 
       - ./clubs-microservice/src:/usr/src/app/src
-      - ./libs:/usr/src/app/libs
+      - ./libs/providers:/usr/src/app/libs/providers
+      - ./libs/entities:/usr/src/app/libs/entities
+      - ./libs/exception:/usr/src/app/libs/exception
+      - ./libs/nats:/usr/src/app/libs/nats
       - ./.env:/usr/src/app/.env
     command: npm run start:dev
   anallitic_microservice:

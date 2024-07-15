@@ -1,4 +1,4 @@
-import { IsJSON, IsOptional, IsString } from 'class-validator';
+import { IsJSON, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class UpdateLanguageDto {
   @IsString()
@@ -9,7 +9,7 @@ export class UpdateLanguageDto {
   @IsOptional()
   code?: string;
 
-  @IsJSON()
+  @IsObject()
   @IsOptional()
-  variables?: JSON;
+  variables?: string;
 }

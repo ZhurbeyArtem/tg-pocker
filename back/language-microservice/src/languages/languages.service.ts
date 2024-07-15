@@ -30,11 +30,7 @@ export class LanguagesService {
 
   async getOneByCode(code): Promise<Language> {
     try {
-      console.log(code);
-
-      const result = await this.languageRepository.findOneBy(code);
-      console.log(result);
-
+      const result = await this.languageRepository.findOneBy({ ...code });
       if (!result)
         throw new CustomRpcException(404, 'No language with same code');
       return result;
@@ -43,10 +39,14 @@ export class LanguagesService {
     }
   }
 
-  private async getOneById(id): Promise<Language> {
-    const lang = await this.languageRepository.findOneBy(id);
-    if (!lang) throw new CustomRpcException(404, 'No language with same id');
-    return lang;
+  async getOneById(id): Promise<Language> {
+    try {
+      const lang = await this.languageRepository.findOneBy(id);
+      if (!lang) throw new CustomRpcException(404, 'No language with same id');
+      return lang;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async update(data): Promise<Language> {

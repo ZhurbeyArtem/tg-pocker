@@ -7,7 +7,7 @@ export const ACCESS_KEY = {
 };
 
 export const Access = (access: {
-  role: string,
+  roles: string[],
   lvl: number,
   rank: number
 }) => SetMetadata(ACCESS_KEY, access)

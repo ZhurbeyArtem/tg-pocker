@@ -1,4 +1,4 @@
-import { Language } from '@lib/entities';
+import { Language, Club } from '@lib/entities';
 export class UpdateUserInfoDto {
   id: string;
 
@@ -24,7 +24,9 @@ export class UpdateUserInfoDto {
 
   bestHand?: string[];
 
-  ClubID?: string;
+  club?: Club;
 
-  language?: Language;
+  language?: string;
+
+  languageCode?: string;
 }

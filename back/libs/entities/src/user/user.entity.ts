@@ -10,17 +10,19 @@ import { Account } from '../accounts//accounts.entity';
 import { Language } from '../language//language.entity';
 import { Transaction } from '../transaction//transaction.entity';
 import { Tournament } from '../tournament/tournament.entity';
-import { ClubInvitations } from '../club/clubInvitation.entity';
+
 import { ClubBannedAndKickedUsers } from '../club/clubBannedAndKickedUsers.entity';
 import { UserRound } from './userRound.entity';
 import { RefreshToken } from './userRefreshToken.entity';
+import { Club } from '../club/club.entity';
+import { ClubAttemptsLogin } from '../club/clubAttemptsLogin.entity';
 
 enum UserRole {
   player = 'player',
   clubAdmin = 'clubAdmin',
-  clubUser = 'clubUser',
-  admin = 'admin',
+  clubMember = 'clubMember',
   clubModer = 'clubModer',
+  admin = 'admin',
   allianceAdmin = 'allianceAdmin',
   allianceModer = 'allianceModer',
 }
@@ -98,24 +100,23 @@ export class User {
   @Column({ type: 'uuid', array: true, default: [] })
   friends: string[];
 
-  @Column({ type: 'uuid', name: 'club_id', nullable: true })
-  ClubID: string;
+
+  @ManyToOne(() => Club, (club) => club.users)
+  @JoinColumn({ name: 'club_id' })
+  club: Club;
 
   @OneToMany(() => Account, (account) => account.user)
   accounts: Account[];
 
   @ManyToOne(() => Language, (language) => language.user)
   @JoinColumn({ name: 'language_id' })
-  language: Language;
+  language: string;
 
   @OneToMany(() => Transaction, (transaction) => transaction.user)
   transactions: Transaction[];
 
   @OneToMany(() => Tournament, (tournament) => tournament.user)
   tournaments: Tournament[];
-
-  @OneToMany(() => ClubInvitations, (clubInvitation) => clubInvitation.user)
-  clubInvitations: ClubInvitations[];
 
   @OneToMany(
     () => ClubBannedAndKickedUsers,
@@ -125,6 +126,9 @@ export class User {
 
   @OneToMany(() => UserRound, (userRound) => userRound.user)
   userRounds: UserRound[];
+
+  @OneToMany(() => ClubAttemptsLogin, (clubAttemptsLogin) => clubAttemptsLogin.user)
+  clubAttemptsLogin: ClubAttemptsLogin[];
 
   @OneToMany(() => RefreshToken, refreshToken => refreshToken.user)
   refreshTokens: RefreshToken[];

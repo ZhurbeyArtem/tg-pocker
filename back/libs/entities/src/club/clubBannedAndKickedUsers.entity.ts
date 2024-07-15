@@ -18,8 +18,11 @@ export class ClubBannedAndKickedUsers {
   @Column({ type: 'enum', enum: clubType })
   type: string;
 
-  @Column({ type: 'timestamp', name: 'period_to' })
-  periodTo: Date;
+  @Column({ type: 'uuid' })
+  bannedBy: string;
+
+  @Column({ type: 'date', name: 'period_to' })
+  periodTo: string;
 
   @Column({
     type: 'timestamp',
@@ -30,9 +33,9 @@ export class ClubBannedAndKickedUsers {
 
   @ManyToOne(() => User, (user) => user.clubBannedAndKickedUsers)
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user: string;
 
   @ManyToOne(() => Club, (club) => club.clubBannedAndKickedUsers)
   @JoinColumn({ name: 'club_id' })
-  club: Club;
+  club: string;
 }

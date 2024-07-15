@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Tournament } from '../tournament/tournament.entity';
-import { InvitationLink } from '../invitation//invitationLinks.entity';
 import { AllianceInvitations } from './allianceInvitation.entity';
 import { News } from '../news/news.entity';
 import { Account } from '../accounts/accounts.entity';
@@ -78,11 +77,11 @@ export class Alliance {
   @OneToMany(() => Club, (club) => club.alliance)
   clubs: Club[];
 
-  @OneToMany(() => InvitationLink, (invitationLink) => invitationLink.alliance)
-  invitationLinks: InvitationLink[];
+  // @OneToMany(() => InvitationLink, (invitationLink) => invitationLink.alliance)
+  // invitationLinks: InvitationLink[];
 
   @OneToMany(() => AllianceOwners, (allianceOwners) => allianceOwners.alliance)
-  allianceOwners: InvitationLink[];
+  allianceOwners: AllianceOwners[];
 
   @OneToMany(
     () => AllianceInvitations,

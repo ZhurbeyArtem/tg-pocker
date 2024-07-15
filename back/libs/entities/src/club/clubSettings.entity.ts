@@ -6,9 +6,9 @@ enum clubType {
 }
 
 enum clubRole {
-  member = 'member',
-  moder = 'moder',
-  admin = 'admin',
+  clubAdmin = 'clubAdmin',
+  clubMember = 'clubMember',
+  clubModer = 'clubModer',
 }
 
 @Entity('club_settings')
@@ -29,7 +29,7 @@ export class ClubSettings {
     type: 'enum',
     enum: clubRole,
     name: 'default_role',
-    default: clubRole.member,
+    default: clubRole.clubMember,
   })
   defaultRole: string;
 

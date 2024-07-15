@@ -29,7 +29,9 @@
       "@lib/guards": ["libs/guards/src"],
       "@lib/guards/*": ["libs/guards/src/*"],
       "@lib/jwt": ["libs/jwt/src"],
-      "@lib/jwt/*": ["libs/jwt/src/*"]
+      "@lib/jwt/*": ["libs/jwt/src/*"],
+      "@lib/nats": ["libs/nats/src"],
+      "@lib/nats/*": ["libs/nats/src/*"]
     }
   },
   "watchOptions": {

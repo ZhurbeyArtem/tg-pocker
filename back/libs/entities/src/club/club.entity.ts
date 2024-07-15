@@ -10,12 +10,13 @@ import {
 import { User } from '../user/user.entity';
 import { Tournament } from '../tournament/tournament.entity';
 import { Account } from '../accounts/accounts.entity';
-import { ClubInvitations } from './clubInvitation.entity';
+import { ClubInvitationLink } from './clubInvitationsLinks.entity'
 import { ClubSettings } from './clubSettings.entity';
 import { ClubBannedAndKickedUsers } from './clubBannedAndKickedUsers.entity';
 import { AllianceInvitations } from '../alliance/allianceInvitation.entity';
 import { News } from '../news/news.entity';
 import { Alliance } from '../alliance/alliance.entity';
+import { ClubAttemptsLogin } from './clubAttemptsLogin.entity';
 
 enum clubLocalization {
   ru = 'ru',
@@ -42,10 +43,10 @@ export class Club {
     enum: clubLocalization,
     array: true,
   })
-  localization: string;
+  localization: string[];
 
-  @Column('varchar')
-  description: string;
+  @Column('varchar', { nullable: true })
+  description?: string;
 
   @Column('uuid', { name: 'owner_id' })
   ownerId: string;
@@ -59,15 +60,15 @@ export class Club {
   @Column('varchar')
   slogan: string;
 
-  @Column({ type: 'simple-json' })
+  @Column({ type: 'simple-json', nullable: true })
   restrictions: {
     banned: boolean;
     reason: string;
     periodTo: Date;
   };
 
-  @Column('varchar')
-  code: string; //code that access to club
+  @Column('int', { nullable: true })
+  code: number; //code that access to club
 
   @Column({
     type: 'timestamp',
@@ -76,11 +77,11 @@ export class Club {
   })
   createdAt: Date;
 
-  @OneToMany(() => User, (user) => user.language, { nullable: true })
-  user: User[];
-
   @OneToMany(() => News, (news) => news.club)
   news: News[];
+
+  @OneToMany(() => ClubAttemptsLogin, (clubAttemptsLogin) => clubAttemptsLogin.club)
+  clubAttemptsLogin: ClubAttemptsLogin[];
 
   @OneToMany(() => Account, (account) => account.club)
   accounts: Account[];
@@ -88,8 +89,11 @@ export class Club {
   @OneToMany(() => Tournament, (tournament) => tournament.club)
   tournaments: Tournament[];
 
-  @OneToMany(() => ClubInvitations, (clubInvitation) => clubInvitation.club)
-  clubInvitations: ClubInvitations[];
+  @OneToMany(() => User, (user) => user.club)
+  users: User[];
+
+  @OneToMany(() => ClubInvitationLink, (clubInvitationLinks) => clubInvitationLinks.club)
+  clubInvitationLinks: ClubInvitationLink[];
 
   @OneToMany(
     () => ClubBannedAndKickedUsers,

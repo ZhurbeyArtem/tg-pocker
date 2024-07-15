@@ -18,7 +18,8 @@ enum UserRole {
   allianceModer = 'allianceModer',
 }
 
-import { Language } from '@lib/entities'
+import { Language, Club } from '@lib/entities';
+import { Transform } from 'class-transformer';
 
 enum UserStatus {
   normal = 'normal',
@@ -42,10 +43,12 @@ export class UpdateUserInfoDto {
   nickname?: string;
 
   @IsOptional()
+  @Transform(({ value }) => parseInt(value, 10), { toClassOnly: true })
   @IsInt()
   lvl?: number; // after user level up his lvl user can connect to more higher club
 
   @IsOptional()
+  @Transform(({ value }) => parseInt(value, 10), { toClassOnly: true })
   @IsInt()
   rank?: number; //for more access for functional in club
 
@@ -75,7 +78,7 @@ export class UpdateUserInfoDto {
 
   @IsOptional()
   @IsUUID()
-  ClubID?: string;
+  club?: Club;
 
   @IsOptional()
   @IsString()

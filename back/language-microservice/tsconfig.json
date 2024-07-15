@@ -23,7 +23,9 @@
       "@lib/entities": ["libs/entities/src"],
       "@lib/entities/*": ["libs/entities/src/*"],
       "@lib/exception": ["libs/exception/src"],
-      "@lib/exception/*": ["libs/exception/src/*"]
+      "@lib/exception/*": ["libs/exception/src/*"],
+      "@lib/nats": ["libs/nats/src"],
+      "@lib/nats/*": ["libs/nats/src/*"]
     }
   },
   "watchOptions": {

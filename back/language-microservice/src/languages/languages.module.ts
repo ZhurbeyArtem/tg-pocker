@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { LanguagesController } from './languages.controller';
 import { LanguagesService } from './languages.service';
-import { NatsClientModule } from 'src/nats-client/nats-client.module';
+import { NatsClientModule } from '@lib/nats';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Language } from '@lib/entities';
 

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { LanguagesController } from './languages.controller';
-import { NatsClientModule } from '../nats-client/nats-client.module';
+import { NatsClientModule } from '@lib/nats';
 
 @Module({
   imports: [NatsClientModule],

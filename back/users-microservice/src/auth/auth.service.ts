@@ -22,10 +22,14 @@ export class AuthService {
         tgUserId: data.tgUserId,
       });
 
-      if (!user) user = await this.register(data);
-
+      if (!user) {
+        user = await this.register(data);
+      }
       const { accessToken } = await this.generateToken(user);
-      user = await this.usersService.updateUser({ ...user, accessToken });
+      user = await this.usersService.updateUser({
+        ...user,
+        accessToken,
+      });
 
       return user;
     } catch (error) {
@@ -39,7 +43,7 @@ export class AuthService {
         status: user.status,
         userId: user.id,
         lvl: user.lvl,
-        rank: user.rank
+        rank: user.rank,
       };
       const accessToken = this.jwtService.sign(payload);
       const refreshToken = uuidv4();

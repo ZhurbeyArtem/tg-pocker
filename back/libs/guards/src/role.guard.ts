@@ -20,6 +20,7 @@ export class RolesGuard implements CanActivate {
         return true
       }
 
+
       const request = context.switchToHttp().getRequest()
       const authHeader = request.headers.authorization
       const bearer = authHeader?.split(' ')[0];
@@ -35,18 +36,17 @@ export class RolesGuard implements CanActivate {
       } catch (error) {
         throw new UnauthorizedException('Invalid token');
       }
-      
-     
-      request.user = user
-      if (!user.role.some(role => requiredPermission.role.includes(role)) || !user.rank >= requiredPermission.rank || !user.lvl >= requiredPermission.lvl) {
-        console.log('here');
 
+      request.user = user
+      if (!user.role.some(role => requiredPermission.roles.some(reqRole => reqRole.includes(role))) || !user.rank >= requiredPermission.rank || !user.lvl >= requiredPermission.lvl) {
         throw new HttpException('User doesn`t have permission', HttpStatus.FORBIDDEN)
       }
 
       return true
 
     } catch (error) {
+      console.log(error);
+
       throw error
     }
   }

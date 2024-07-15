@@ -8,23 +8,14 @@ import {
 import { User } from '../user/user.entity';
 import { Club } from './club.entity';
 
-enum clubInvitationsStatus {
-  apply = 'apply',
-  reject = 'reject',
-  waiting = 'waiting',
-}
 
-@Entity('clubs_invitation')
-export class ClubInvitations {
+@Entity('clubs_attempts_login')
+export class ClubAttemptsLogin {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    type: 'enum',
-    enum: clubInvitationsStatus,
-    default: clubInvitationsStatus.waiting,
-  })
-  status: string;
+  @Column('int', { default: 1 })
+  tries: number;
 
   @Column({
     type: 'timestamp',
@@ -33,11 +24,11 @@ export class ClubInvitations {
   })
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.clubInvitations)
+  @ManyToOne(() => User, (user) => user.clubAttemptsLogin)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Club, (club) => club.clubInvitations)
+  @ManyToOne(() => Club, (club) => club.clubAttemptsLogin)
   @JoinColumn({ name: 'club_id' })
   club: Club;
 }
